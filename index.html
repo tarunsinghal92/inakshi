@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Inakshi's Blog</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		
+		<!-- Slidebars CSS -->
+		<link rel="stylesheet" href="slidebars/slidebars.css">
+		
+		<!-- Example Styles -->
+		<link rel="stylesheet" href="example-styles.css">
+		<style type="text/css">
+		.sidebar_btn{height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;border: 2px solid #fff;top: 10px;right: 10px;position: absolute;cursor: pointer;}
+		.sidebar_btn .icon{height: 35px;width: 32px;margin:7px 6px;}
+		.sidebar_btn .active{background: url("images/app_sidebar.png")no-repeat;background-size: 24px;}
+		.sidebar_btn .inactive{background: url("images/app_sidebar_in.png")no-repeat;background-size: 24px;}
+
+		.back_btn{z-index: 1;height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;border: 2px solid #fff;top: 10px;left: 10px;position: fixed;cursor: pointer;}
+		.back_btn .icon{height: 35px;width: 32px;margin:7px 6px;background: url("images/app_sidebar_in.png")no-repeat;background-size: 24px;} 
+		
+		.blog_main{position: absolute;width: 100%;height: 100%;overflow: hidden;}
+		.blog_main .data{color: #fff;position: absolute;z-index: 1;padding: 15px;font-family: sans-serif;font-weight: 100;}
+		.blog_main .data .head{font-size: 24px;line-height: 30px;}
+		.blog_main .data .date{font-size: 12px;}
+		.blog_main .blog_overlay{display: none;width: 100%;background: #000;opacity: .5;top: 0px;height: 100%;position: absolute;}
+		.blog_main .main_logo{background: url("images/main_logo.png")no-repeat;width: 150px;bottom: 0px;height: 117px;position: absolute;margin-left: 55%;}
+		.blog_main_pic{position: absolute;top: 0px;}
+		.blog_main_pic img{width: 100%;height: 100%;}
+
+		.loading_screen{z-index: 1000;display: none;width: 100%;top: 0px;height: 100%;position: absolute;background: rgba(0, 0, 0, 0.5);}
+		.loading_screen .icon_box{height: 80px;width: 80px;background: rgba(0, 0, 0, 0.67);margin-top: 60%;margin-left: auto;margin-right: auto;border-radius: 8px;}
+		.loading_screen .icon_box .icon{background: url("images/loader.GIF") no-repeat;height: 60px;width: 60px;background-size: 60px 60px;margin: 10px;position: relative;top: 10px;}
+
+		.sidebar_content{font-family: sans-serif;font-weight: 100;}
+		.sidebar_content .item_head{text-align: center;color: #F5F5F5;border-bottom: 1px solid #777;padding: 10px;}
+		.sidebar_content .item{cursor: pointer;padding: 10px;border-bottom: 1px solid #777;font-size: 13px;}
+		.sidebar_content a{text-decoration: blink;color: #fff;}
+	
+		.blog_content_container{position: absolute;width: 100%;height: 100%;overflow-x: hidden;}
+		.blog_content_container .main_image{position: absolute;top: 0px;}
+		.blog_content_container .main_image img{width: 100%;height: 100%;}
+		.blog_content_container .main_content{position: absolute;top: 70%;background: rgba(255, 255, 255, 0.87);width: 100%;height: 100%;-webkit-transform: skewY(2deg);-moz-transform: ;-ms-transform: skewY(2deg);-o-transform: skewY(2deg);transform: skewY(2deg);}
+		.blog_content_container .main_content .blue_head{background: rgb(97, 171, 224);width: 100px;margin: 10px;line-height: 18px;color: #fff;font-size: 14px;text-align: center;font-weight: 100;-webkit-transform: skewY(2deg);-moz-transform: ;-ms-transform: skewY(-2deg);-o-transform: skewY(-2deg);transform: skewY(-2deg);}
+		.blog_content_container .main_content .date{margin: 3px 10px;font-size: 11px;font-weight: 100;-webkit-transform: skewY(-2deg);-moz-transform: ;-ms-transform: skewY(-2deg);-o-transform: skewY(-2deg);transform: skewY(-2deg);}
+		.blog_content_container .main_content .title{margin: 3px 10px;font-size: 16px;font-weight: 400;-webkit-transform: skewY(-2deg);-moz-transform: ;-ms-transform: skewY(-2deg);-o-transform: skewY(-2deg);transform: skewY(-2deg);}
+		.blog_content_container .main_content .rest_content{margin: 10px;font-size: 16px;font-weight: 100;-webkit-transform: skewY(-2deg);-moz-transform: ;-ms-transform: skewY(-2deg);-o-transform: skewY(-2deg);transform: skewY(-2deg);}
+		.separator img{width: 90%;height: 100%;}
+		.MsoNormal{text-align: justify;}
+
+		.blog_content_container .fb_sharing{z-index: 1;/*height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;border: 2px solid #fff;*/bottom: 15px;right: 15px;position: fixed;}
+		.blog_content_container .fb_sharing .icon{height: 35px;width: 32px;margin:7px;background: url("images/app_sharing.png")no-repeat;background-size: 19px;} 
+
+		</style> 
+		
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=646846168729690&version=v2.0";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
+
+	</head>
+	
+	<body>	 
+		<div id="sb-site" > 
+			<div class="blog_main" > 
+			</div>	
+			<div class="blog_overlay"></div>
+			<div class="loading_screen">
+				<div class="icon_box">
+					<div class="icon"></div>
+				</div>
+			</div>
+			<div class="blog_content_container" style="display:none;">
+
+				<a href="javascript:go_back();"><div class="back_btn"><div class="icon active"></div></div> </a>
+				<div class="main_image">
+				</div>
+				<div class="main_content">
+					<div class="blue_head">Voguish Affair</div>
+					<div class="title">A Pencilled Affair</div>
+					<div class="date">by Voguish Affair, Sat, October 4</div>
+					<div class="rest_content">
+					</div>
+				</div>
+				<div class="fb_sharing">
+					<div class="fb-share-button" data-href="https://voguish-affair.blogspot.in" data-layout="button"></div>
+					<!--<div class="icon"></div>-->
+				</div> 
+			</div>
+			<div class="sb-toggle-right sidebar_btn">
+				<div class="icon active"></div>
+			</div> 
+		</div>
+ 
+		<div class="sb-slidebar sb-right sidebar_content">
+			<div class="item_head">VOGUISH AFFAIR</div>	 
+		</div>
+				
+		<!-- jQuery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   		<script type="text/javascript" src="jquery.touchSwipe.min.js"></script>  
+		<script src="slidebars/slidebars.js"></script>
+		<script>
+			(function($) {
+				$(document).ready(function() {
+					$.slidebars();
+				});
+			}) (jQuery);
+
+ 			function get_sidebar_data(){ 
+ 				$.ajax({
+			        url: "http://travelngo.in/app/inakshi/data_api.php",
+			        type: "post",
+			        data: {
+			        	type : "side_bar"
+			        	},
+			        success: function(data) {
+			            var jsonData = $.parseJSON(data);
+			            console.log(jsonData);
+			            var html = "";
+			            for (var i = 0; i < jsonData.length; i++) {
+			            	html += '<a href="javascript:get_blog_full_data('+i+');"><div blog_id="'+jsonData[i].id+'" find_id="'+i+'" class="item">'+jsonData[i].title+'</div></a>';
+			            };
+
+						//html += '<div class="item">Contact Me</div>';	 
+						//html += '<div class="item">Share On Facebook</div>';	
+			            $('.sidebar_content').append(html); 
+
+			        },
+			        error: function()
+			        {
+			        }
+			    });
+ 			}
+ 			get_sidebar_data();
+ 			
+ 			function get_blog_full_data(find_id){
+ 				event_loader('show');
+ 				$('.sidebar_btn').trigger('click');
+ 				var blog_id = $('[find_id="'+find_id+'"]').attr('blog_id');
+ 				//console.log(blog_id);
+ 				$.ajax({
+			        url: "http://travelngo.in/app/inakshi/data_api.php",
+			        type: "post",
+			        data: {
+			        	blog_id : blog_id,
+			        	type : "full_blog"
+			        	},
+			        success: function(data) {
+			            var jsonData = $.parseJSON(data);
+			            //console.log(jsonData);
+			            $('.blog_content_container .main_image').html(jsonData.main_image);
+			            $('.blog_content_container .main_content .blue_head').html(jsonData.author.name);
+			            $('.blog_content_container .main_content .title').html(jsonData.title);
+			            $('.blog_content_container .main_content .date').html(jsonData.published);
+			            $('.blog_content_container .main_content .rest_content').html(jsonData.content);
+			            
+			            event_loader('hide');
+			            $('.blog_main').fadeOut(0);
+			            $('.blog_content_container').fadeIn(50);
+
+			        },
+			        error: function()
+			        {
+			        }
+			    });
+ 			} 
+
+ 			function event_loader(event_type){
+ 				if( event_type== "show"){
+ 					$('.loading_screen').fadeIn(100);
+ 				}else{
+ 					$('.loading_screen').fadeOut(100);
+ 				}
+ 			}
+ 
+		    function get_cat_items(){
+		    	event_loader('show');  
+ 				$.ajax({
+			        url: "http://travelngo.in/app/inakshi/data_api.php",
+			        type: "post",
+			        data: { 
+			        	type : "cat_blog"
+			        	},
+			        success: function(data) {
+			            var jsonData = $.parseJSON(data);
+			            //console.log(jsonData); 
+			            var html = "";
+
+			            for (var i = 0; i < 1; i++) {
+				            	
+				            html += '		<div class="cat_item" blog_id="'+jsonData[i].id+'">';
+							html += 			'<div class="data">';
+							html += 				'<div class="head">'+jsonData[i].title+'</div>';
+							html += 				'<div class="date">'+jsonData[i].published+'</div>';
+							html += 			'</div>';
+							html += 			'<div class="blog_main_pic">';
+							html += 				jsonData[i].main_image;
+							html += 			'</div>';
+							html += 			'<div class="main_logo"></div>';
+							html += 		'</div>';
+
+			            };
+						$('.blog_main').html(html);
+
+			            event_loader('hide');
+			        },
+			        error: function()
+			        {
+			        }
+			    });
+		    }
+		    get_cat_items();
+
+
+		    function go_back(){
+			    event_loader('show');
+	            $('.blog_content_container').fadeOut(0);	
+	            get_cat_items();
+	            $('.blog_main').fadeIn(50);
+			    event_loader('hide');
+		    }
+		</script>
+ 
+	</body>
+</html>
