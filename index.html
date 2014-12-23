@@ -36,7 +36,7 @@
 		.sidebar_content .item{cursor: pointer;padding: 10px;border-bottom: 1px solid #777;font-size: 13px;}
 		.sidebar_content a{text-decoration: blink;color: #fff;}
 	
-		.blog_content_container{position: absolute;width: 100%;height: 100%;overflow-x: hidden;}
+		.blog_content_container{position: absolute;width: 100%;height: 100%;overflow-x: scroll;}
 		.blog_content_container .main_image{position: absolute;top: 0px;}
 		.blog_content_container .main_image img{width: 100%;height: 100%;}
 		.blog_content_container .main_content{position: absolute;top: 70%;background: rgba(255, 255, 255, 0.87);width: 100%;height: 100%;-webkit-transform: skewY(2deg);-moz-transform: ;-ms-transform: skewY(2deg);-o-transform: skewY(2deg);transform: skewY(2deg);}
@@ -186,6 +186,8 @@
 			            event_loader('hide');
 			            $('.blog_main').fadeOut(0);
 			            $('.blog_content_container').fadeIn(50);
+
+			            $('a[imageanchor="1"]').removeAttr('href');
 
 			        },
 			        error: function()
