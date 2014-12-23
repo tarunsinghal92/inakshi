@@ -10,12 +10,12 @@
 		<!-- Example Styles -->
 		<link rel="stylesheet" href="example-styles.css">
 		<style type="text/css">
-		.sidebar_btn{height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;-webkit-border-radius:100%;border: 2px solid #fff;top: 10px;right: 10px;position: absolute;cursor: pointer;}
+		.sidebar_btn{height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;border: 2px solid #fff;top: 10px;right: 10px;position: absolute;cursor: pointer;}
 		.sidebar_btn .icon{height: 35px;width: 32px;margin:7px 6px;}
 		.sidebar_btn .active{background: url("images/app_sidebar.png")no-repeat;background-size: 24px;}
 		.sidebar_btn .inactive{background: url("images/app_sidebar_in.png")no-repeat;background-size: 24px;}
 
-		.back_btn{z-index: 1;height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;-webkit-border-radius:100%;border: 2px solid #fff;top: 10px;left: 10px;position: fixed;cursor: pointer;}
+		.back_btn{z-index: 1;height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;border: 2px solid #fff;top: 10px;left: 10px;position: fixed;cursor: pointer;}
 		.back_btn .icon{height: 35px;width: 32px;margin:7px 6px;background: url("images/app_sidebar_in.png")no-repeat;background-size: 24px;} 
 		
 		.blog_main{position: absolute;width: 100%;height: 100%;overflow: hidden;}
@@ -25,10 +25,10 @@
 		.blog_main .blog_overlay{display: none;width: 100%;background: #000;opacity: .5;top: 0px;height: 100%;position: absolute;}
 		.blog_main .main_logo{background: url("images/main_logo.png")no-repeat;width: 150px;bottom: 0px;height: 117px;position: absolute;margin-left: 55%;}
 		.blog_main_pic{position: absolute;top: 0px;}
-		.blog_main_pic img{width: 100%;height: 100%;}
+		.blog_main_pic img{height: 100%;}
 
 		.loading_screen{z-index: 1000;display: none;width: 100%;top: 0px;height: 100%;position: absolute;background: rgba(0, 0, 0, 0.5);}
-		.loading_screen .icon_box{height: 80px;width: 80px;background: rgba(0, 0, 0, 0.67);margin-top: 60%;margin-left: auto;margin-right: auto;border-radius: 8px;-webkit-border-radius:8px;}
+		.loading_screen .icon_box{height: 80px;width: 80px;background: rgba(0, 0, 0, 0.67);margin-top: 60%;margin-left: auto;margin-right: auto;border-radius: 8px;}
 		.loading_screen .icon_box .icon{background: url("images/loader.GIF") no-repeat;height: 60px;width: 60px;background-size: 60px 60px;margin: 10px;position: relative;top: 10px;}
 
 		.sidebar_content{font-family: sans-serif;font-weight: 100;}
@@ -49,6 +49,12 @@
 
 		.blog_content_container .fb_sharing{z-index: 1;/*height: 35px;width: 35px;background:rgba(51, 51, 51, 0.8);border-radius: 100%;border: 2px solid #fff;*/bottom: 15px;right: 15px;position: fixed;}
 		.blog_content_container .fb_sharing .icon{height: 35px;width: 32px;margin:7px;background: url("images/app_sharing.png")no-repeat;background-size: 19px;} 
+
+		.comments_header{font-size: 24px;font-weight: 400;}
+		#comment_post{height: 30px;background: #444;width: 80px;color: #fff;text-align: center;line-height: 30px;font-size: 18px;border-radius: 4px;margin: 10px 0;}
+		.comments_box{margin:10px; }
+		.comments_box .icon{background: url("images/app_photo.jpg") no-repeat;height: 20px;width:20px;background-size: 20px;float: left}
+		.comments_box .text{line-height: 20px;margin-left: 30px;}
 
 		</style> 
 		
@@ -111,6 +117,24 @@
 				});
 			}) (jQuery);
 
+			function store_comments(){
+				var msg = $('textarea[name="comment_msg"]').val();
+				var blog_id = $('#comment_post').attr('blog_id');
+
+ 				$.ajax({
+			        url: "http://travelngo.in/app/inakshi/comments_api.php",
+			        type: "post",
+			        data: {
+			        	msg : msg,
+			        	id : blog_id,
+			        	},
+			        success: function(data) {
+			            var jsonData = $.parseJSON(data);
+			            $('.comments_err_msg').html(jsonData.msg); 
+			        } 
+			    });				
+			}
+
  			function get_sidebar_data(){ 
  				$.ajax({
 			        url: "http://travelngo.in/app/inakshi/data_api.php",
@@ -126,7 +150,7 @@
 			            	html += '<a href="javascript:get_blog_full_data('+i+');"><div blog_id="'+jsonData[i].id+'" find_id="'+i+'" class="item">'+jsonData[i].title+'</div></a>';
 			            };
 
-						//html += '<div class="item">Contact Me</div>';	 
+						html += '<div class="item"><a href="mailto:inakshi@travelngo.in" style="text-decoration:none;">Contact Me</a></div>';	 
 						//html += '<div class="item">Share On Facebook</div>';	
 			            $('.sidebar_content').append(html); 
 
